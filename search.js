@@ -40,6 +40,12 @@ async function fetchHotDealPricing(category, itemElement) {
       return;
     }
 
+    // Find the tax text element and set loading state
+    const taxTextElement = itemElement.querySelector("p");
+    if (taxTextElement) {
+      taxTextElement.textContent = "Fetching best pricing...";
+    }
+
     const response = await fetch(
       "https://operators-dashboard.bubbleapps.io/api/1.1/wf/instant_book_pricing",
       {
@@ -100,9 +106,20 @@ async function fetchHotDealPricing(category, itemElement) {
           }
         });
       }
+
+      // Restore original tax text after successful API call
+      const taxTextElement = itemElement.querySelector("p");
+      if (taxTextElement) {
+        taxTextElement.textContent = "Final Price - No Hidden Fees";
+      }
     }
   } catch (error) {
     console.error("Error fetching hot deal pricing:", error);
+    // Restore original tax text on error
+    const taxTextElement = itemElement.querySelector("p");
+    if (taxTextElement) {
+      taxTextElement.textContent = "Final Price - No Hidden Fees";
+    }
   }
 }
 
@@ -1288,7 +1305,7 @@ function getHotDealHtml(
         <div class="price" data-hot-deal-category="${item.instant_book_hot_deal_category_text || ''}" data-item-id="${item._id}">
           <h3 class="main_price"><img style="width: 100px;" src="https://cdn.prod.website-files.com/6713759f858863c516dbaa19/691376b3a1d1243d2e443b61_animation.gif" alt="" /></h3>
           <h5 class="hourly_rate"></h5>
-          <p>Taxes calculated at checkout</p>
+          <p>Final Price - No Hidden Fees</p>
         </div>
         <div class="bookingbutton">
 <a  class="bookinglink button fill_button request-book-btn" href="#"  data-flightrequestid="${flightRequestId}" data-type="instant" data-aircraftid="${
