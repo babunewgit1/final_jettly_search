@@ -1,0 +1,27 @@
+.swiper-pagination {
+  position: static !important;
+  margin-top: 16px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.swiper-pagination-bullet {
+  width: 16px;
+  height: 16px;
+  background-color: transparent;
+  border: #68727f 2px solid;
+  border-radius: 50%;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #68727f;
+  width: 12px;
+  height: 12px;
+}
+
+.pw_form_input_field:focus-visible {
+  border: 1px solid #acb1b8;
+  outline: none;
+}
